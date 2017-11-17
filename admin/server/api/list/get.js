@@ -1,6 +1,7 @@
 var async = require('async');
 var assign = require('object-assign');
 var listToArray = require('list-to-array');
+var restrictAccess = require('../../middleware/restrictAccess');
 
 module.exports = function (req, res) {
 	var where = {};
@@ -18,6 +19,10 @@ module.exports = function (req, res) {
 			return res.status(401).json({ error: 'fields must be undefined, a string, or an array' });
 		}
 	}
+
+	restrictAccess.restrictDocuments(where, req.list, req.user);
+	
+	
 	var filters = req.query.filters;
 	if (filters && typeof filters === 'string') {
 		try { filters = JSON.parse(req.query.filters); }
@@ -29,6 +34,7 @@ module.exports = function (req, res) {
 	if (req.query.search) {
 		assign(where, req.list.addSearchToQuery(req.query.search));
 	}
+	
 	var query = req.list.model.find(where);
 	if (req.query.populate) {
 		query.populate(req.query.populate);
@@ -57,6 +63,9 @@ module.exports = function (req, res) {
 				query.sort(sort.string);
 			}
 			query.exec(function (err, items) {
+				if (!restrictAccess.canAccessList(req.list, req.user)) {
+					items = [];
+				}
 				next(err, count, items);
 			});
 		},
