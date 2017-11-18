@@ -1,5 +1,5 @@
 ---
-title: KeystoneJS - INHAABIT Updates
+title: KeystoneJS - User Permissions Updates
 ---
 
 Updates keystone with user privileges.
