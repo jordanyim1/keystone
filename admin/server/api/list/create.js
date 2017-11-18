@@ -1,8 +1,11 @@
+var restrictAccess = require('../../middleware/restrictAccess');
+
 module.exports = function (req, res) {
 	var keystone = req.keystone;
 	if (!keystone.security.csrf.validate(req)) {
 		return res.apiError(403, 'invalid csrf');
 	}
+	if (!restrictAccess.canEditList(req.list, req.user)) return res.status(401).json({ error: 'You do not have permission to create new items.', id: req.params.id });
 
 	var item = new req.list.model();
 	req.list.updateItem(item, req.body, {

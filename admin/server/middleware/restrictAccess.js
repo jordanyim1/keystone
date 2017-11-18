@@ -4,8 +4,6 @@ var UserRoles = keystone.get('user roles');
 
 var userHasRole = function (list, field, user) {
 	var userRole = UserRoles.find(x => x.value === user.role);
-	console.log("user role:" + user.role);
-	console.log("list role: " + list.options.restrict[field]);
 	if (!list.options.restrict || !list.options.restrict[field] || userRole.isAdmin) {
 		return true;
 	}

@@ -6,6 +6,8 @@ module.exports = function (req, res) {
 	var counts = {};
 	async.each(keystone.lists, function (list, next) {
 		var where = {};
+		restrictAccess.restrictDocuments(where, list, req.user);
+		
 		if (restrictAccess.canAccessList(list, req.user)) {
 			list.model.count(where, function (err, count) {
 				counts[list.key] = count;

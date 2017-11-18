@@ -1,4 +1,5 @@
 var async = require('async');
+var restrictAccess = require('../../middleware/restrictAccess');
 
 module.exports = function (req, res) {
 	var keystone = req.keystone;
@@ -10,6 +11,7 @@ module.exports = function (req, res) {
 		console.log('Refusing to delete ' + req.list.key + ' items; List.nodelete is true');
 		return res.apiError(400, 'nodelete');
 	}
+	if (!restrictAccess.canEditList(req.list, req.user)) return res.status(401).json({ error: 'You do not have permission to delete this item.', id: req.params.id });
 	var ids = req.body.ids || req.body.id || req.params.id;
 	if (typeof ids === 'string') {
 		ids = ids.split(',');

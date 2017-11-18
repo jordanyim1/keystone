@@ -3,12 +3,15 @@ TODO: Needs Review and Spec
 */
 
 var async = require('async');
+var restrictAccess = require('../../middleware/restrictAccess');
 
 module.exports = function (req, res) {
 	var keystone = req.keystone;
 	if (!keystone.security.csrf.validate(req)) {
 		return res.apiError(403, 'invalid csrf');
 	}
+	if (!restrictAccess.canEditList(req.list, req.user)) return res.status(401).json({ error: 'You do not have permission to update this item.', id: req.params.id });
+	
 	// var updateCount = 0;
 	async.map(req.body.items, function (data, done) {
 		req.list.model.findById(data.id, function (err, item) {
