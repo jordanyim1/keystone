@@ -29,7 +29,3 @@ Keystone must be init with 'user roles', an array like this:
 	{value: 2, label:'User', isAdmin:false},
 ];
 ```
-
-TODO
----
-Need to actually hide lists on menu

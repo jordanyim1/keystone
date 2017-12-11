@@ -1,9 +1,8 @@
-var keystone = require('../../../');
-var UserRoles = keystone.get('user roles');
-
+let UserRoles = null;
 
 var userHasRole = function (list, field, user) {
 	var userRole = UserRoles.find(x => x.value === user.role);
+
 	if (!list.options.restrict || !list.options.restrict[field] || userRole.isAdmin) {
 		return true;
 	}
@@ -16,6 +15,9 @@ var userHasRole = function (list, field, user) {
 };
 
 module.exports = {
+	setUserRoles: function (userRoles) {
+		UserRoles = userRoles;
+	},
 	/**
 	 * Adds queries to a 'where' clause based on user role and restriction
 	 * @param where - where query object

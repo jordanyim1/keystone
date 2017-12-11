@@ -2,6 +2,7 @@ var compression = require('compression');
 var favicon = require('serve-favicon');
 var methodOverride = require('method-override');
 var morgan = require('morgan');
+var restrictAccess = require('../admin/server/middleware/restrictAccess');
 
 var language = require('../lib/middleware/language');
 
@@ -43,6 +44,10 @@ module.exports = function createApp (keystone, express) {
 
 	if (keystone.get('favicon')) {
 		app.use(favicon(keystone.getPath('favicon')));
+	}
+	
+	if (keystone.get('user roles')) {
+		restrictAccess.setUserRoles(keystone.get('user roles'));
 	}
 
 	// unless the headless option is set (which disables the Admin UI),

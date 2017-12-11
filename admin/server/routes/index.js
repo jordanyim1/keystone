@@ -12,6 +12,7 @@ module.exports = function IndexRoute (req, res) {
 	});
 
 	var UserList = keystone.list(keystone.get('user model'));
+	var UserRoles = keystone.get('user roles');
 
 	var orphanedLists = keystone.getOrphanedLists().map(function (list) {
 		return _.pick(list, ['key', 'label', 'path']);
@@ -32,11 +33,12 @@ module.exports = function IndexRoute (req, res) {
 		csrf: { header: {} },
 		devMode: !!process.env.KEYSTONE_DEV,
 		lists: lists,
-		nav: keystone.nav,
+		nav: keystone.initNav(keystone.get('nav'), req.user),
 		orphanedLists: orphanedLists,
 		signoutUrl: keystone.get('signout url'),
 		user: {
 			id: req.user.id,
+			role: UserRoles.find(x => x.value === req.user.role).label,
 			name: UserList.getDocumentName(req.user) || '(no name)',
 		},
 		userList: UserList.key,

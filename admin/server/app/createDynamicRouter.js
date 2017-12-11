@@ -2,12 +2,9 @@ var bodyParser = require('body-parser');
 var express = require('express');
 var multer = require('multer');
 
+
+
 module.exports = function createDynamicRouter (keystone) {
-	// ensure keystone nav has been initialised
-	// TODO: move this elsewhere (on demand generation, or client-side?)
-	if (!keystone.nav) {
-		keystone.nav = keystone.initNav();
-	}
 
 	var router = express.Router();
 	var IndexRoute = require('../routes/index');
