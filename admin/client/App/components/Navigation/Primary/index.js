@@ -117,7 +117,7 @@ var PrimaryNavigation = React.createClass({
 			<nav className="primary-navbar">
 				<Container clearFloatingChildren>
 					<ul className="app-nav app-nav--primary app-nav--left">
-						<img src="https://dev.inhaabit.com/wp-content/uploads/2017/09/inhaabit-logo-footer.png" className="inhaabit-logo"/>
+						<a href="/"><img src="/images/logo.png" className="company-logo"/></a>
 						{this.renderNavigation()}
 					</ul>
 					{this.renderFrontLink()}
