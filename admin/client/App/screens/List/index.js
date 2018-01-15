@@ -22,6 +22,7 @@ import ListFilters from './components/Filtering/ListFilters';
 import ListHeaderTitle from './components/ListHeaderTitle';
 import ListHeaderToolbar from './components/ListHeaderToolbar';
 import ListManagement from './components/ListManagement';
+import Graph from '../../components/Graph';
 
 import ConfirmationDialog from '../../shared/ConfirmationDialog';
 import CreateForm from '../../shared/CreateForm';
@@ -231,6 +232,15 @@ const ListView = React.createClass({
 				total={items.count}
 				limit={10}
 			/>
+		);
+	},
+	renderGraph () {
+		const items = this.props.items;
+		return (
+			<Graph
+				items={items.results}
+				listName={this.props.currentList.plural}
+			/>	
 		);
 	},
 	renderHeader () {
@@ -446,6 +456,7 @@ const ListView = React.createClass({
 		}
 		return (
 			<div>
+				{this.renderGraph()}
 				{this.renderHeader()}
 				<Container>
 					<div style={{ height: 35, marginBottom: '1em', marginTop: '1em' }}>

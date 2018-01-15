@@ -11,6 +11,7 @@ module.exports = [
 	'async',
 	'blacklist',
 	'classnames',
+	'chart.js',
 	'display-name',
 	'elemental',
 	'expression-match',
