@@ -31,9 +31,22 @@ module.exports = {
 				var path = list.options.restrict.match.path;
 				var from = list.options.restrict.match.from;
 				if (!path || !from) {
+					
 					throw new Error('list ' + list + ' must have "path" and "from"');
 				}
-				where[path] = user[from];
+				
+				
+				let search;
+				if (!user[from]) {
+					search = [];
+				}
+				else if (user[from].constructor !== Array) {
+					search = [user[from]];
+				}
+				else {
+					search = user[from];
+				}
+				where[path] = { $in: search };
 			}
 		}
 	},
