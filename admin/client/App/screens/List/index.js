@@ -456,7 +456,6 @@ const ListView = React.createClass({
 		}
 		return (
 			<div>
-				/*{this.renderGraph()}*/
 				{this.renderHeader()}
 				<Container>
 					<div style={{ height: 35, marginBottom: '1em', marginTop: '1em' }}>
