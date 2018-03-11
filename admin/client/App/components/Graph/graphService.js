@@ -10,7 +10,6 @@ import _ from 'lodash';
  * @returns {object} - graphData
  */
 export function parseListModels (models) {
-	console.log(models);
 	
 	// Convert to moments
 	const createDates = models.map(model => (moment(model.fields.createdAt)));

@@ -18,7 +18,6 @@ const Graph = React.createClass({
 		const ctx = document.getElementById('analyticsChart').getContext('2d');
 		const options = {};
 		const graphData = parseListModels(this.props.items);
-		console.log(graphData);
 		const data = {
 
 			labels: graphData.labels,
