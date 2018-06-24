@@ -196,7 +196,23 @@ list.prototype.updateItem = function (item, data, files, callback) {
 	}
 	// Wrap non-array values in an array
 	if (!Array.isArray(values)) {
-		values = [values];
+		
+		/* Bug with qs.js causes problems with arrays of length > 21, converting them to objects, e.g. 
+		['hello', 'world'] => {'1': 'hello'}, {'2': 'world'}
+		Can't fix this by setting qs arrayLimit - maybe it's set somewhere else?
+		*/
+		if (values['1'] && values['20']) {
+			const arrValues = [];
+			for (var key in values) {
+				if (values.hasOwnProperty(key)) {
+					arrValues.push(values[key]);
+				}
+			}
+			values = arrValues;
+		} else {
+			values = [values];
+		}
+		
 	}
 	// NOTE - this method will overwrite the entire array, which is less specific
 	// than it could be. Concurrent saves could lead to race conditions, but we
