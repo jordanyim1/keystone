@@ -112,13 +112,13 @@ module.exports = Field.create({
 	},
 
 	getOptions () {
-		var plugins = ['code', 'link'];
+		var plugins = ['code', 'link', 'jsplusInclude', 'jsplusBootstrapEditor', 'jsplusFileUploaderLite'];
 		var options = Object.assign(
 				{},
 				Keystone.wysiwyg.options,
 				this.props.wysiwyg
 			);
-		var toolbar = options.overrideToolbar ? '' : 'bold italic | alignleft aligncenter alignright | bullist numlist | outdent indent | removeformat | link ';
+		var toolbar = options.overrideToolbar ? '' : 'jsplusBootstrapEditor jsplusBootstrapEditorSelected | bold italic | alignleft aligncenter alignright | bullist numlist | outdent indent | removeformat | link ';
 		var i;
 
 		if (options.enableImages) {
@@ -162,8 +162,30 @@ module.exports = Field.create({
 			selector: '#' + this.state.id,
 			toolbar: toolbar,
 			plugins: plugins,
+			extended_valid_elements: 'span[*]',
+			paste_data_images: true,
 			menubar: options.menubar || false,
 			skin: options.skin || 'keystone',
+			jsplusInclude: {
+				framework: "b3",
+				css: [
+					"https://api.inhaabit.com/temp-editor/bootstrap-grid-only.css"
+				],
+				includeCssToGlobalDoc: true
+			},
+			jsplusFileUploader: {
+				urlUploader: "https://demo.js.plus/file_uploader/uploader.php",
+				urlFiles: "https://demo.js.plus/file_uploader/files"
+			},
+			jsplusBootstrapEditor: {
+				HTMLEditorConfig: {
+					jsplusFileUploader: {
+						urlUploader: "https://demo.js.plus/file_uploader/uploader.php",
+						urlFiles: "https://demo.js.plus/file_uploader/files"
+					},
+					toolbar1: "image table | bold italic underline | numlist bullist | alignleft aligncenter alignright alignjustify | fontselect fontsizeselect | link unlink | jsplusBootstrapEditorColConf jsplusBootstrapEditorColChangeType | jsplusBootstrapEditorColMoveLeft jsplusBootstrapEditorColMoveRight | jsplusBootstrapEditorColAdd | jsplusBootstrapEditorColDelete",
+				}
+			},
 		};
 
 		if (this.shouldRenderField()) {

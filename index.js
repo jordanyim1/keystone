@@ -37,9 +37,9 @@ var Keystone = function () {
 		'model prefix': null,
 		'module root': moduleRoot,
 		'frame guard': 'sameorigin',
-		'cache admin bundles': true,
+		'cache admin bundles': false
 	};
-	this._redirects = {};
+	this._redirects = {}; 
 
 	// expose express
 	this.express = express;
