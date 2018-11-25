@@ -166,6 +166,11 @@ module.exports = Field.create({
 			paste_data_images: true,
 			menubar: options.menubar || false,
 			skin: options.skin || 'keystone',
+			init_instance_callback: function (editor) {
+				editor.on('focus', function (e) {
+					console.log('Editor got focus!');
+				});
+			},
 			jsplusInclude: {
 				framework: "b3",
 				css: [
@@ -177,6 +182,7 @@ module.exports = Field.create({
 				urlUploader: "https://demo.js.plus/file_uploader/uploader.php",
 				urlFiles: "https://demo.js.plus/file_uploader/files"
 			},
+			//JY Modified jsplusBootstrapEditor because the save trigger wasn't working!
 			jsplusBootstrapEditor: {
 				HTMLEditorConfig: {
 					jsplusFileUploader: {
