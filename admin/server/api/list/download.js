@@ -4,13 +4,18 @@ TODO: Needs Review and Spec
 
 var moment = require('moment');
 var assign = require('object-assign');
+var restrictAccess = require('../../middleware/restrictAccess');
 
 module.exports = function (req, res, next) {
+	console.log("Exporting products!");
 	var baby = require('babyparse');
 	var keystone = req.keystone;
 
 	var format = req.params.format.split('.')[1]; // json or csv
 	var where = {};
+
+	restrictAccess.restrictDocuments(where, req.list, req.user);
+	
 	var filters = req.query.filters;
 	if (filters && typeof filters === 'string') {
 		try { filters = JSON.parse(req.query.filters); }
@@ -37,6 +42,11 @@ module.exports = function (req, res, next) {
 	.then(function (results) {
 		var data;
 		var fields = [];
+
+		if (!restrictAccess.canAccessList(req.list, req.user)) {
+			results = [];
+		}
+		
 		if (format === 'csv') {
 			data = results.map(function (item) {
 				var row = req.list.getCSVData(item, {
