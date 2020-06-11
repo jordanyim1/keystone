@@ -17,6 +17,7 @@
     <script>
       var Keystone = <%- JSON.stringify(keystone) %>;
     </script>
+		<script src="/keystone/keystone.custom.js"></script>
 <%# Old jQuery, editor and Cloudinary scripts %>
     <script src="<%= adminPath %>/js/lib/jquery/jquery-1.10.2.min.js"></script>
 <% if (fieldTypes.wysiwyg) { -%>
@@ -43,7 +44,6 @@
       ga('create', '<%= ga.property %>', '<%= ga.domain %>');
       ga('send', 'pageview');
     </script>
-		<script src="/keystone/keystone.custom.js"></script>
 <% } -%>
   </body>
 </html>
