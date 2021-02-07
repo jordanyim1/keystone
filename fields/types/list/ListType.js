@@ -185,7 +185,7 @@ list.prototype.updateItem = function (item, data, files, callback) {
 
 	var field = this;
 	var values = this.getValueFromData(data);
-	
+
 	// Don't update the value when it is undefined
 	if (values === undefined) {
 		values = [];
@@ -196,8 +196,8 @@ list.prototype.updateItem = function (item, data, files, callback) {
 	}
 	// Wrap non-array values in an array
 	if (!Array.isArray(values)) {
-		
-		/* Bug with qs.js causes problems with arrays of length > 21, converting them to objects, e.g. 
+
+		/* Bug with qs.js causes problems with arrays of length > 21, converting them to objects, e.g.
 		['hello', 'world'] => {'1': 'hello'}, {'2': 'world'}
 		Can't fix this by setting qs arrayLimit - maybe it's set somewhere else?
 		*/
@@ -212,7 +212,7 @@ list.prototype.updateItem = function (item, data, files, callback) {
 		} else {
 			values = [values];
 		}
-		
+
 	}
 	// NOTE - this method will overwrite the entire array, which is less specific
 	// than it could be. Concurrent saves could lead to race conditions, but we

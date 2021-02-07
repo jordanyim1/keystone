@@ -23,9 +23,9 @@ var BooleanColumn = React.createClass({
 		xhr({
 			method: 'post',
 			url: Keystone.adminPath
-						+ '/toggle/'
+						+ '/api/'
 						+	list.id
-						+	'/'
+						+	'/toggle/'
 						+ data.id
 						+ '/'
 						+ col.field.path
